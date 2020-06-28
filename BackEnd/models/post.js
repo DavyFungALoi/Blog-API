@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const Post = new Schema({
+const PostSchema = new Schema({
   title: { type: String, required: true, max: 100 },
   body: { type: String, required: true, max: 1000 },
   time: { type: Date, default: Date.now },

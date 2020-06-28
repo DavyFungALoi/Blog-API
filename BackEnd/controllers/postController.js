@@ -1,4 +1,6 @@
 const mongoose = require("mongoose")
+const Post = require("../models/post")
+
 
 
 exports.getPosts = function (req, res) {
