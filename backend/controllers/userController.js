@@ -29,10 +29,43 @@ exports.postUsers = function (req, res) {
   });
 };
 
-exports.putUsers = function (req, res) {
-  res.send(console.log("Put Users"));
+exports.putUsers = function (req, res, next) {
+  const user = new User({
+    first_name: "Obi-wan",
+    last_name: "Kenobi",
+    username: "Hellothere@kappa.com",
+    password: "ohmygod",
+    _id: req.params.id,
+  });
+  User.findByIdAndUpdate(req.params.id, user, function (err) {
+    if (err) {
+      return next(err)
+    }
+    console.log(req.params.id)
+    console.log(user)
+    res.send(console.log('updated user'))
+  })
 };
 
-exports.deleteUsers = function (req, res) {
+//req.params.id,
+//5ef8ec3fc87a600523692414
+
+exports.deleteUsers = function (req, res, next) {
+  User.findByIdAndRemove({_id:req.params.id}), function (err) {
+    if(err) {
+      console.log(err)
+      return next(err)
+    }
+  }
+  console.log(req.params.id)
   res.send(console.log("delete Users"));
 };
+
+/*
+const { [req.params.messageId]: message, ...otherMessages } = messages;
+
+  messages = otherMessages;
+
+  return res.send(message);
+
+*/
