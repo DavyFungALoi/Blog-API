@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const async = require("async");
 
 exports.getUsers = function (req, res) {
   User.find({}, "first_name last_name").exec(function (err, list_users) {
@@ -39,27 +40,35 @@ exports.putUsers = function (req, res, next) {
   });
   User.findByIdAndUpdate(req.params.id, user, function (err) {
     if (err) {
-      return next(err)
+      return next(err);
     }
-    console.log(req.params.id)
-    console.log(user)
-    res.send(console.log('updated user'))
-  })
+    console.log(req.params.id);
+    console.log(user);
+    res.send(console.log("updated user"));
+  });
 };
 
 //req.params.id,
 //5ef8ec3fc87a600523692414
 
-exports.deleteUsers = function (req, res, next) {
-  User.findByIdAndRemove({_id:req.params.id}), function (err) {
-    if(err) {
-      console.log(err)
-      return next(err)
-    }
+exports.deleteUsers = async function (req, res, next) {
+  try {
+    await User.findByIdAndRemove({ _id: req.params.id }),
+      function (err) {
+        console.log("hello");
+        if (err) {
+          console.log(err);
+          return next(err);
+        }
+      };
+    console.log(req.params.id);
+    res.send(console.log("delete Users"));
+  } catch (err) {
+    next(err);
   }
-  console.log(req.params.id)
-  res.send(console.log("delete Users"));
 };
+
+//DELETE USER IS ASYNCHROUS, NEED TO ADD ASYNC FUNCTIONALITY
 
 /*
 const { [req.params.messageId]: message, ...otherMessages } = messages;
