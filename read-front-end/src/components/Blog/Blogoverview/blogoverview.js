@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 export default function Blogoverview() {
   useEffect(() => {
@@ -18,12 +19,14 @@ export default function Blogoverview() {
 
   return (
     <div>
-          <div>
+      <div>
         {blogs.map((blog) => (
-          <div key={blog._id}>{blog.first_name}</div>
+          <div key={blog._id}>
+            <Link to={`/blog/${blog._id}`}>{blog.first_name}</Link>
+          </div>
         ))}
-        </div>
-        
+      </div>
+
       <div>blogoverview</div>
     </div>
   );
