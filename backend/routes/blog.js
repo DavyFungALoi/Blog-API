@@ -8,7 +8,7 @@ const userController = require('../controllers/userController')
 
 router.get('/', postController.getPosts)
 
-router.post('/', postController.postPosts)
+router.post('/post', postController.postPosts)
 
 router.put('/:id', postController.putPosts)
 

@@ -33,7 +33,3 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 app.listen(5000, () =>  {
   console.log("Server started on port 5000");
 });
-
-
-
-//mongodb+srv://davy:blogAPI321@blogapi-remlf.azure.mongodb.net/BlogAPI?retryWrites=true&w=majority
