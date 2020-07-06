@@ -5,15 +5,23 @@ const User = require("../models/user")
 
 
 exports.getPosts = function (req, res) {
-    res.send(console.log('get posts'))
+    Post.find({}, "title time").populate("author").exec(function (err, list_posts) {
+        if (err) {
+          return next(err);
+        }
+        console.log(list_posts);
+        res.send({
+          post_list: list_posts,
+        });
+      });
 }
 
 exports.postPosts = function (req, res) {
     const post = new Post({
-        title: "First Post",
-        body: "first blogpost which is going to very long. lets see what happens when this blogpost exceeds like 10000 characters.",        
+        title: "Second PUBLISHED POST",
+        body: "Second blogpost which is going to very long - PUBLISHED POST.  dsifghndfkgndfjhgbwerbw jhgkdkfgnei iergnekjrgnd fngeourgjierngd fihnwergkenrg dfigjnekngid ufg ehnhrgien",        
         author: '5ef7bc99d225e9839931888c',
-        status:'unpublished'
+        status:'published'
 
       });
       post.save(function (err) {
