@@ -1,0 +1,15 @@
+.nav__bar__container {
+    background-color: blue;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0px;
+    padding: 10px;
+    
+
+}
+
+.nav__bar_item {
+    color: white;
+    list-style: none;
+    font-size: 2rem;
+}

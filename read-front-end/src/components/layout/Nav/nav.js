@@ -1,21 +1,22 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "./nav.css";
 
 export default function nav() {
   return (
     <div>
-      <ul>
+      <ul className="nav__bar__container">
         <Link to="/">
-          <li>Home</li>
+          <li className="nav__bar_item">Home</li>
         </Link>
         <Link to="/portfolio">
-          <li>Portfolio</li>
+          <li className="nav__bar_item">Portfolio</li>
         </Link>
         <Link to="/blog">
-          <li>Blog</li>
+          <li className="nav__bar_item">Blog</li>
         </Link>
         <Link to="/about">
-          <li>About</li>
+          <li className="nav__bar_item">About</li>
         </Link>
       </ul>
     </div>

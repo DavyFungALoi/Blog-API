@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import Home from "./components/Home/home"
 import Nav from "./components/layout/Nav/nav";
+import Footer from "./components/layout/Footer/footer"
 import Blogoverview from "./components/Blog/Blogoverview/blogoverview";
 import BlogPost from './components/Blog/Blogpost/blogpost'
 import About from "./components/About/about";
@@ -10,7 +11,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
+    <div className="App_container">
       <Router>
         <div>
           <Nav />
@@ -21,6 +22,7 @@ function App() {
             <Route path="/Blog/:id" exact component={BlogPost} />
             <Route path="/about" component={About} />
           </Switch>
+       
         </div>
       </Router>
     </div>

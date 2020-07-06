@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import "./blogoverview.css";
 
 export default function Blogoverview() {
   useEffect(() => {
@@ -8,26 +9,32 @@ export default function Blogoverview() {
   const [blogs, setBlogs] = useState([]);
 
   const fetchBlogs = async () => {
-    const data = await fetch("http://localhost:5000/blog/user", {
+    const data = await fetch("http://localhost:5000/blog", {
       mode: "cors",
       method: "GET",
     });
     const items = await data.json();
     console.log(items);
-    setBlogs(items.users_list);
+    setBlogs(items.post_list);
   };
 
   return (
     <div>
-      <div>
+      <div className="blog_overview__title">Blogoverview</div>
+      <div className="blogoverview__container">
         {blogs.map((blog) => (
-          <div key={blog._id}>
-            <Link to={`/blog/${blog._id}`}>{blog.first_name}</Link>
-          </div>
+
+          <Link to={`/blog/${blog._id}`}>
+            
+            <div className="blogoverview__post" key={blog._id}>
+            <div>{blog.title}</div>
+              <div>{blog.author.first_name}</div>
+              <div>{blog.time}</div>
+              <div>Preview</div>
+            </div>
+          </Link>
         ))}
       </div>
-
-      <div>blogoverview</div>
     </div>
   );
 }

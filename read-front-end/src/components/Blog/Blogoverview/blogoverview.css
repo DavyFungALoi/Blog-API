@@ -1,0 +1,29 @@
+.blogoverview__container{
+display: grid;
+grid-template-columns: 500px 500px;
+grid-template-rows: 500px 500px;
+
+}
+
+.blog_overview__title{
+    text-align: center;
+    font-size: 2rem;
+
+}
+
+.blogoverview__post{
+    text-align: center;
+    text-decoration:none;
+    font-size: 2rem;
+    background-color: #777;
+    border: 1px solid black;
+    color: yellow;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    border-radius: 5px;
+    height: 100%;
+
+}
+
+a:link {
+    text-decoration: none;
+  }
