@@ -5,7 +5,7 @@ const User = require("../models/user")
 
 
 exports.getPosts = function (req, res) {
-    Post.find({}, "title time").populate("author").exec(function (err, list_posts) {
+    Post.find({ status: 'published'}, "title time status").populate("author").exec(function (err, list_posts) {
         if (err) {
           return next(err);
         }
@@ -40,3 +40,33 @@ exports.putPosts = function (req, res) {
 exports.deletePosts = function (req, res) {
     res.send(console.log('delete posts'))
 }
+
+exports.getSinglePost = function (req, res, next) {
+  Post.findOne({ _id: req.params.id}, "title time status").populate("author").exec(function (err, data_post) {
+      if (err) {
+        return next(err);
+      }
+      console.log(data_post);
+      res.send({
+        post_data: data_post,
+      });
+    });
+}
+/*
+Keyboard.find({ brand: req.params.id })
+.populate("category")
+.populate("brand")
+.exec(callback);
+},
+
+
+
+Story.
+  findOne({ title: 'Casino Royale' }).
+  populate('author').
+  exec(function (err, story) {
+    if (err) return handleError(err);
+    console.log('The author is %s', story.author.name);
+    // prints "The author is Ian Fleming"
+  });
+*/
