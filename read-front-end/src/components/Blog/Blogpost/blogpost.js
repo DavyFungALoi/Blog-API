@@ -4,18 +4,20 @@ import { Link } from "react-router-dom";
 export default function Blogpost({ match }) {
   useEffect(() => {
     fetchBlog();
-    console.log(match)
+    console.log(match);
+    
   }, []);
   const [blog, setBlog] = useState([]);
 
   const fetchBlog = async () => {
-    const data = await fetch("http://localhost:5000/blog/user", {
+    const data = await fetch(window.location.href, {
       mode: "cors",
       method: "GET",
     });
+    console.log(window.location.href.url)
     const items = await data.json();
     console.log(items);
-    setBlog(items.users_list);
+    setBlog(items.post_data);
   };
 
   return (
