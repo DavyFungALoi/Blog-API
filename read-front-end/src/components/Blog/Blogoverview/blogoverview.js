@@ -23,8 +23,9 @@ export default function Blogoverview() {
       <div className="blog_overview__title">Blogoverview</div>
       <div className="blogoverview__container">
         {blogs.map((blog) => (
-          <Link to={`/blog/${blog._id}`}>
-            <div className="blogoverview__post" key={blog._id}>
+          <Link to={`/blog/${blog._id}`} key={blog._id}>
+            
+            <div className="blogoverview__post">
               <div>{blog.title}</div>
               <div>{blog.author.first_name}</div>
               <div>{blog.time}</div>
