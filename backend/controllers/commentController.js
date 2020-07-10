@@ -3,12 +3,7 @@ const Comment = require('../models/comments')
 
 exports.getComments = function (req, res) {
   console.log(req.params.id)
-  Comment.find({}, "title name body").populate({
-    path: 'post',
-    match: {
-       _id: req.params.id
-    }
- }).exec(function (err, list_comments) {
+  Comment.find({post: req.params.id}, "title name body").exec(function (err, list_comments) {
     if (err) {
       return next(err);
     }
@@ -48,6 +43,8 @@ exports.deleteComments = function (req, res) {
 /*
 {
 .populate('flats', null, { isDeleted: false })
+
+_id: req.params.id
   null, { isDeleted: false }
        ({
         path: 'supporterOf',
@@ -56,6 +53,18 @@ exports.deleteComments = function (req, res) {
         }
      })
      { isDeleted: false }
+
+
+      Comment.find({post:req.params.id})
+
+
+
+       Comment.find({}, "title name body").populate({
+    path: 'post',
+    match: { title: "Second Comment"},
 */
+
+
+
 
 //"First Comment" { post: req.params.id}

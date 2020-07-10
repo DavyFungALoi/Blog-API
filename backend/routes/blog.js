@@ -19,7 +19,7 @@ router.delete('/:id', postController.deletePosts)
 
 //Comments
 
-router.get('/comment/:id', commentController.getComments)
+router.get('/:id/comment/:id', commentController.getComments)
 
 router.post('/comment', commentController.postComments)
 
