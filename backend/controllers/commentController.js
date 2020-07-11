@@ -13,7 +13,8 @@ exports.getComments = function (req, res) {
     });
   });
 }
-
+///{post: req.params.id}
+///{ $and: [ { price: { $ne: 1.99 } }, { price: { $exists: true } } ] }
 exports.postComments = function (req, res) {
     const comment = new Comment({
         title: "ThirdComment",

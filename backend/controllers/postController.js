@@ -41,7 +41,7 @@ exports.deletePosts = function (req, res) {
 };
 
 exports.getSinglePost = function (req, res, next) {
-  Post.findOne({ _id: req.params.id }, "title time status")
+  Post.findOne({ _id: req.params.id }, "title time status body author")
     .populate("author")
     .populate("")
     .exec(function (err, data_post) {
