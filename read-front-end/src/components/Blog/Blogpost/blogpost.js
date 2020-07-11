@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import moment from "moment";
+import "./blogpost.css";
 
 export default function Blogpost({ match }) {
   useEffect(() => {
@@ -7,8 +9,6 @@ export default function Blogpost({ match }) {
   }, []);
   const [blog, setBlog] = useState({ author: {} });
   const [comments, setComments] = useState([]);
-  //{ images: {} })
-  ///[{author:{}}]
   const fetchBlog = async () => {
     const data = await fetch(
       `http://localhost:5000${window.location.pathname}`,
@@ -40,16 +40,17 @@ export default function Blogpost({ match }) {
       <div>
         <div className="blogpost__container">
           <div className="blogpost__container__summary">
-            <div>{blog.title}</div>
-            <div>{blog.time}</div>
-            <div>{blog.author.first_name}</div>
+            <div className="blogpost__container__summary__title">{blog.title}</div>
+            <div className="blogpost__container__summary__author">{blog.author.first_name}</div>
+            <div className="blogpost__container__summary__time">{moment(blog.time).format("MMMM Do, YYYY")}</div>
           </div>
+          <div>{blog.body}</div>
 
           {comments.map((comment) => (
             <div key={comment._id} className="blogpost__comment_overview">
               <div>{comment.title}</div>
               <div>{comment.body}</div>
-              <div>{comment.time}</div>
+              <div>{moment(comment.time).format("MMMM Do, YYYY")}</div>
             </div>
           ))}
         </div>

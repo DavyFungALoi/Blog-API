@@ -1,3 +1,19 @@
 .blogpost__container {
-    border: solid black;
+  border: solid black;
+}
+.blogpost__container__summary {
+  border: solid blue;
+}
+.blogpost__container__summary__title {
+  color: red;
+}
+.blogpost__container__summary__author {
+  color: blue;
+}
+
+.blogpost__container__summary__time {
+  color: yellow;
+}
+.blogpost__comment_overview {
+  border: solid red;
 }
