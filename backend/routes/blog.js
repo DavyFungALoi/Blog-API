@@ -27,7 +27,7 @@ router.put('/comment/:id', commentController.putComments)
 
 router.delete('/comment/:id', commentController.deleteComments)
 
-
+router.post('/comment/test', commentController.postComment)
 
 
 //User

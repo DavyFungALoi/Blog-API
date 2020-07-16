@@ -6,7 +6,6 @@ exports.getUsers = function (req, res) {
     if (err) {
       return next(err);
     }
-    console.log(list_users);
     res.send({
       users_list: list_users,
     });
