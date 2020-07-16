@@ -6,14 +6,22 @@
 }
 .blogpost__container__summary__title {
   color: red;
+  font-size: 2rem;
 }
 .blogpost__container__summary__author {
-  color: blue;
+
+  font-size: 1.1rem;
 }
 
 .blogpost__container__summary__time {
-  color: yellow;
+  color: green;
+  font-size: 1.1rem;
 }
-.blogpost__comment_overview {
+
+.blogpost__container__comment__container{
+  background-color: blue;
+}
+
+.blogpost__container__comment_overview{
   border: solid red;
 }

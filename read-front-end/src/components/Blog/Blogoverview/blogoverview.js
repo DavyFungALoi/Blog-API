@@ -14,7 +14,6 @@ export default function Blogoverview() {
       method: "GET",
     });
     const items = await data.json();
-    console.log(items);
     setBlogs(items.post_list);
   };
 
