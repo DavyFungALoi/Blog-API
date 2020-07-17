@@ -25,3 +25,6 @@
 .blogpost__container__comment_overview{
   border: solid red;
 }
+.blogpost__container__commentform{
+  background-color: red;
+}

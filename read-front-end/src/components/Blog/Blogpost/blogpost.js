@@ -7,7 +7,7 @@ export default function Blogpost({ match }) {
   useEffect(() => {
     fetchBlog();
     fetchComments();
-    fetchPostComment();
+    console.log("useeffect used");
   }, []);
   const [blog, setBlog] = useState({ author: {} });
   const [comments, setComments] = useState([]);
@@ -23,6 +23,7 @@ export default function Blogpost({ match }) {
     setBlog(items.post_data);
   };
   const fetchComments = async () => {
+    console.log("retrieve Comments");
     const variable = window.location.pathname.split("/");
     const commentVariable = variable[2];
     const data = await fetch(
@@ -37,6 +38,7 @@ export default function Blogpost({ match }) {
   };
 
   const fetchPostComment = () => {
+    console.log("Post Comments");
     fetch("http://localhost:5000/blog/comment/test", {
       mode: "cors",
       method: "POST",
@@ -44,10 +46,9 @@ export default function Blogpost({ match }) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        title: "Comment 5",
+        title: "Comment 6",
         body: "This is a Post Request",
-        postId: "5f02c0beaa1f5759eac5475d"
-
+        postId: "5f02c0beaa1f5759eac5475d",
       }),
     })
       .then((res) => {
@@ -56,6 +57,11 @@ export default function Blogpost({ match }) {
       .catch((error) => console.log(error));
   };
 
+  const postCommentAndRetrieveHandler = async () => {
+    const responsePostComments = await fetchPostComment();
+    const responseRetrieveComments = await fetchComments();
+    return [responsePostComments, responseRetrieveComments];
+  };
   /*
   const fetchPostComment = async () => {
     const requestOptions = {
@@ -100,8 +106,19 @@ export default function Blogpost({ match }) {
                 <div>{comment.body}</div>
               </div>
             ))}
-            <form action=""></form>
           </div>
+          <form className= "blogpost__container__commentform" action="">
+            <label htmlFor="username">Username (optional)</label>
+            <input name="username" type="text" />
+            <label htmlFor="title">title</label>
+            <input name="title" type="text" />
+            <label htmlFor="body">comment</label>
+            <input name="body" type="text" />
+
+            <button onClick={postCommentAndRetrieveHandler}>
+              Submit Comment
+            </button>
+          </form>
         </div>
       </div>
     </div>
