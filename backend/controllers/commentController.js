@@ -10,7 +10,6 @@ exports.getComments = function (req, res) {
     if (err) {
       return next(err);
     }
-    console.log(list_comments);
     res.send({
       comments_list: list_comments,
     });
@@ -43,11 +42,25 @@ exports.deleteComments = function (req, res) {
 //*{person1: mongoose.Types.ObjectId(Person._id)}
 
 exports.postComment = function (req, res) {
-  console.log(req.body)
-  console.log(req.kappa)
-  res.send(console.log(req.body));
+  const comment = new Comment({
+    title: req.body.title,
+    body: req.body.body,
+    post: req.body.postId,
+  });
+  comment.save(function (err) {
+    if (err) {
+      return next(err);
+    }
+    res.send(console.log(comment));
+    return;
+  });
 };
 /*
+
+  console.log(req.body)
+  console.log(req.body.postId)
+  console.log(req.body.title)
+  res.send(console.log(req.body));
   const comment = new Comment({
     title: "Fourth Comment",
     body: "your post sucks Thrice",
