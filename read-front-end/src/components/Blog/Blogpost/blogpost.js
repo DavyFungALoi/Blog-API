@@ -4,6 +4,9 @@ import "./blogpost.css";
 import { isCompositeComponent } from "react-dom/test-utils";
 
 export default function Blogpost({ match }) {
+
+const [commentInput, setUsername] = useState({username: "", title:""})
+
   useEffect(() => {
     fetchBlog();
     fetchComments();
@@ -57,12 +60,27 @@ export default function Blogpost({ match }) {
       .catch((error) => console.log(error));
   };
 
-  const postCommentAndRetrieveHandler = async () => {
+  const handlePostCommentAndRetrieve = async () => {
     const responsePostComments = await fetchPostComment();
     const responseRetrieveComments = await fetchComments();
     return [responsePostComments, responseRetrieveComments];
   };
+
+  const handleUsernameChange = (e) => {
+    setUsername({username: e.target.value})
+  }
+
+  const handleTitleChange = (e) => {
+    setUsername({title: e.target.value})
+
+  }
+ 
   /*
+
+   const handleTitleChange = (e) => {
+    setUsername({title: e.target.value})
+  }
+
   const fetchPostComment = async () => {
     const requestOptions = {
       method: "POST",
@@ -107,15 +125,15 @@ export default function Blogpost({ match }) {
               </div>
             ))}
           </div>
-          <form className= "blogpost__container__commentform" action="">
+          <form className="blogpost_postCommentAndRetrieveHandler_container__commentform" action="">
             <label htmlFor="username">Username (optional)</label>
-            <input name="username" type="text" />
+            <input name="username" type="text" value={commentInput.username} onChange={handleUsernameChange}/>
             <label htmlFor="title">title</label>
-            <input name="title" type="text" />
+            <input name="title" type="text" value={commentInput.title} onChange={handleTitleChange}/>
             <label htmlFor="body">comment</label>
             <input name="body" type="text" />
 
-            <button onClick={postCommentAndRetrieveHandler}>
+            <button onClick={handlePostCommentAndRetrieve}>
               Submit Comment
             </button>
           </form>
