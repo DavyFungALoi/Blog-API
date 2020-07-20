@@ -4,13 +4,13 @@ import "./blogpost.css";
 import { isCompositeComponent } from "react-dom/test-utils";
 
 export default function Blogpost({ match }) {
-
-const [commentInput, setUsername] = useState({username: "", title:""})
+  const [username, setUsername] = useState({ username: "" });
+  const [title, setTitle] = useState({ title: "" });
+  const [commentInput, setCommentInput] = useState({ commentInput: "" });
 
   useEffect(() => {
     fetchBlog();
     fetchComments();
-    console.log("useeffect used");
   }, []);
   const [blog, setBlog] = useState({ author: {} });
   const [comments, setComments] = useState([]);
@@ -26,7 +26,6 @@ const [commentInput, setUsername] = useState({username: "", title:""})
     setBlog(items.post_data);
   };
   const fetchComments = async () => {
-    console.log("retrieve Comments");
     const variable = window.location.pathname.split("/");
     const commentVariable = variable[2];
     const data = await fetch(
@@ -41,17 +40,20 @@ const [commentInput, setUsername] = useState({username: "", title:""})
   };
 
   const fetchPostComment = () => {
-    console.log("Post Comments");
-    fetch("http://localhost:5000/blog/comment/test", {
+   const currentblogID = window.location.pathname.split("/").pop()
+   const variable = window.location.pathname.split("/");
+  const commentVariable = variable[2];
+    fetch(`http://localhost:5000${window.location.pathname}/comment/${commentVariable}`, {
       mode: "cors",
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        title: "Comment 6",
-        body: "This is a Post Request",
-        postId: "5f02c0beaa1f5759eac5475d",
+        name: username,
+        title: title,
+        body: commentInput,
+        postId: currentblogID,
       }),
     })
       .then((res) => {
@@ -67,33 +69,16 @@ const [commentInput, setUsername] = useState({username: "", title:""})
   };
 
   const handleUsernameChange = (e) => {
-    setUsername({username: e.target.value})
-  }
+    setUsername({ username: e.target.value });
+  };
 
   const handleTitleChange = (e) => {
-    setUsername({title: e.target.value})
-
-  }
- 
-  /*
-
-   const handleTitleChange = (e) => {
-    setUsername({title: e.target.value})
-  }
-
-  const fetchPostComment = async () => {
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name: "comment 1" }),
-    };
-    const response = await fetch(
-      "http://localhost:5000/blog/comment/test",
-      requestOptions
-    );
-    const data = await response.json();
+    setTitle({ title: e.target.value });
   };
-  */
+
+  const handleCommentChange = (e) => {
+    setCommentInput({ commentInput: e.target.value });
+  };
 
   return (
     <div>
@@ -125,13 +110,31 @@ const [commentInput, setUsername] = useState({username: "", title:""})
               </div>
             ))}
           </div>
-          <form className="blogpost_postCommentAndRetrieveHandler_container__commentform" action="">
+          <form
+            className="blogpost_postCommentAndRetrieveHandler_container__commentform"
+            action=""
+          >
             <label htmlFor="username">Username (optional)</label>
-            <input name="username" type="text" value={commentInput.username} onChange={handleUsernameChange}/>
+            <input
+              name="username"
+              type="text"
+              value={username.username}
+              onChange={handleUsernameChange}
+            />
             <label htmlFor="title">title</label>
-            <input name="title" type="text" value={commentInput.title} onChange={handleTitleChange}/>
+            <input
+              name="title"
+              type="text"
+              value={title.title}
+              onChange={handleTitleChange}
+            />
             <label htmlFor="body">comment</label>
-            <input name="body" type="text" />
+            <input
+              name="body"
+              type="text"
+              value={commentInput.commentInput}
+              onChange={handleCommentChange}
+            />
 
             <button onClick={handlePostCommentAndRetrieve}>
               Submit Comment
@@ -142,9 +145,3 @@ const [commentInput, setUsername] = useState({username: "", title:""})
     </div>
   );
 }
-
-/*
-"http://localhost:5000/blog/5f02c0beaa1f5759eac5475d/comment/5f02c0beaa1f5759eac5475d/
-
-http://localhost:3000/blog/5f02c0beaa1f5759eac5475d"
-*/
