@@ -41,10 +41,11 @@ exports.deleteComments = function (req, res) {
 };
 //*{person1: mongoose.Types.ObjectId(Person._id)}
 
-exports.postComment = function (req, res) {
+exports.postComment = function (req, res, next) {
   const comment = new Comment({
-    title: req.body.title,
-    body: req.body.body,
+    name: req.body.name.username,
+    title: req.body.title.title,
+    body: req.body.body.commentInput,
     post: req.body.postId,
   });
   comment.save(function (err) {
@@ -54,7 +55,9 @@ exports.postComment = function (req, res) {
     res.send(console.log(comment));
     return;
   });
+  
 };
+
 /*
 
   console.log(req.body)
