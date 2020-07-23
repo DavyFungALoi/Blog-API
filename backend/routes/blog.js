@@ -4,9 +4,13 @@ const postController = require('../controllers/postController')
 const commentController = require('../controllers/commentController')
 const userController = require('../controllers/userController')
 
+//Read Only
+
 //Posts
 
 router.get('/', postController.getPosts)
+
+router.get('/admin', postController.getPostsAdmin)
 
 router.get('/:id', postController.getSinglePost)
 
@@ -30,6 +34,7 @@ router.delete('/comment/:id', commentController.deleteComments)
 router.post('/:id/comment/:id', commentController.postComment)
 
 
+
 //User
 
 
@@ -40,6 +45,8 @@ router.post('/user', userController.postUsers)
 router.put('/user/:id', userController.putUsers)
 
 router.delete('/user/:id', userController.deleteUsers)
+
+
 
 
 module.exports = router;

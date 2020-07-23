@@ -53,21 +53,36 @@ exports.getSinglePost = function (req, res, next) {
       });
     });
 };
-/*
-Keyboard.find({ brand: req.params.id })
-.populate("category")
-.populate("brand")
-.exec(callback);
-},
 
 
+///
 
-Story.
-  findOne({ title: 'Casino Royale' }).
-  populate('author').
-  exec(function (err, story) {
-    if (err) return handleError(err);
-    console.log('The author is %s', story.author.name);
-    // prints "The author is Ian Fleming"
+exports.getPostsAdmin = function (req, res) {
+  Post.find({}, "title time status")
+  .populate("author")
+  .exec(function (err, list_posts) {
+    if (err) {
+      return next(err);
+    }
+   
+    res.send({
+      post_list: list_posts,
+    });
   });
+
+};
+/*
+  Post.find({}, "title time status")
+    .populate("author")
+    .exec(function (err, list_posts) {
+      if (err) {
+        return next(err);
+      }
+      console.log(lists_posts)
+      res.send({
+        post_list: list_posts,
+      });
+    });
+
+
 */

@@ -15,8 +15,6 @@ exports.getComments = function (req, res) {
     });
   });
 };
-///{post: req.params.id}
-///{ $and: [ { price: { $ne: 1.99 } }, { price: { $exists: true } } ] }
 exports.postComments = function (req, res) {
   const comment = new Comment({
     title: "ThirdComment",
@@ -58,42 +56,3 @@ exports.postComment = function (req, res, next) {
   
 };
 
-/*
-
-  console.log(req.body)
-  console.log(req.body.postId)
-  console.log(req.body.title)
-  res.send(console.log(req.body));
-  const comment = new Comment({
-    title: "Fourth Comment",
-    body: "your post sucks Thrice",
-    post: "5f02c0beaa1f5759eac5475d",
-  });
-  console.log(comment);
-*/
-//
-/*
-{
-.populate('flats', null, { isDeleted: false })
-
-_id: req.params.id
-  null, { isDeleted: false }
-       ({
-        path: 'supporterOf',
-        match: {
-           yourObjectOfIndividualDocument: yourMatchingIdOfIndividual
-        }
-     })
-     { isDeleted: false }
-
-
-      Comment.find({post:req.params.id})
-
-
-
-       Comment.find({}, "title name body").populate({
-    path: 'post',
-    match: { title: "Second Comment"},
-*/
-
-//"First Comment" { post: req.params.id}
