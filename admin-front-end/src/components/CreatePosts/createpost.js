@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function blogoverview() {
+export default function createpost() {
     return (
         <div>
-            blogoverview
+            Create new Post here
         </div>
     )
 }
