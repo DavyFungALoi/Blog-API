@@ -86,7 +86,7 @@ export default function Createpost() {
           </div>
           <div div className="createpost_formcontainer__body">
             <label htmlFor="body">Body</label>
-            <textarea
+            <textarea rows="8" cols="50"
               name="body"
               type="text"
               value={bodyInput.bodyInput}
