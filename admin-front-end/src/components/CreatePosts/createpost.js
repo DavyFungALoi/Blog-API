@@ -1,13 +1,40 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import "./createpost.css";
 
 export default function Createpost() {
-  const [username, setUsername] = useState({ username: "" });
+  const [author, setAuthor] = useState({ author: "" });
   const [title, setTitle] = useState({ title: "" });
-  const [commentInput, setCommentInput] = useState({ commentInput: "" });
   const [bodyInput, setBodyInput] = useState({ bodyInput: "" });
+  const [postStatus, setPostStatus] = useState({ postStatus: "unpublished" });
+
+  const fetchPostPost = () => {
+    const currentblogID = window.location.pathname.split("/").pop();
+    const variable = window.location.pathname.split("/");
+    const commentVariable = variable[2];
+    fetch(
+      `http://localhost:5000${window.location.pathname}/comment/${commentVariable}`,
+      {
+        mode: "cors",
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          author: "5ef7bc99d225e9839931888c",
+          title: title,
+          body: bodyInput,
+          status: postStatus,
+        }),
+      }
+    )
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => console.log(error));
+  };
 
   const handleAuthorChange = (e) => {
-    setUsername({ username: e.target.value });
+    setAuthor({ username: e.target.value });
   };
 
   const handleTitleChange = (e) => {
@@ -18,47 +45,71 @@ export default function Createpost() {
     setBodyInput({ commentInput: e.target.value });
   };
 
-  const handleCreatePost = async () => {
-    console.log("hello");
+  const handleStatusChange = (e) => {
+    setPostStatus({ postStatus: e.target.value });
+  };
+
+  const handleCreatePostSubmit = async (event) => {
+    console.log("hello submitted");
+    console.log(title);
+    console.log(postStatus);
+    event.preventDefault();
   };
 
   return (
     <div>
-      <div>
-        Create new Post here
+      <div className="createpost__container">
+        <div className="createpost__container__title">Create new Post here</div>
         <form
-          className="blogpost_postCommentAndRetrieveHandler_container__commentform"
+          className="createpost_formcontainer"
           action=""
+          onSubmit={handleCreatePostSubmit}
         >
-          <label htmlFor="title">Title</label>
+          <div className="createpost_formcontainer__title">
+            <label htmlFor="title">Title</label>
+            <input
+              name="author"
+              type="text"
+              value={title.title}
+              onChange={handleTitleChange}
+              required
+            />
+          </div>
+          <div div className="createpost_formcontainer__author">
+            <label htmlFor="author">Author (optional)</label>
+            <input
+              name="title"
+              type="text"
+              value={author.author}
+              onChange={handleAuthorChange}
+            />
+          </div>
+          <div div className="createpost_formcontainer__body">
+            <label htmlFor="body">Body</label>
+            <textarea
+              name="body"
+              type="text"
+              value={bodyInput.bodyInput}
+              onChange={handleBodyChange}
+            />
+          </div>
+          <div div className="createpost_formcontainer__status">
+            <label htmlFor="status">Status</label>
+            <select defaultValue={"Default"} name="status"
+            onChange={handleStatusChange}>
+              <option value="Default" selected disabled hidden>
+                Choose publishing status
+              </option>
+              <option value="unpublished">Unpublished</option>
+              <option value="published">Published</option>
+              
+            </select>
+          </div>
           <input
-            name="author"
-            type="text"
-            value={title.title}
-            onChange={handleTitleChange}
+            className="createpost_formcontainer__submitbutton"
+            type="submit"
+            value="Create Post"
           />
-          <label htmlFor="author">Author (optional)</label>
-          <input
-            name="title"
-            type="text"
-            value={username.username}
-            onChange={handleAuthorChange}
-          />
-          <label htmlFor="body">Body</label>
-          <textarea
-            name="body"
-            type="text"
-            value={bodyInput.bodyInput}
-            onChange={handleBodyChange}
-          />
-          <label htmlFor="status">Status</label>
-          <select name="status">
-          <option value="" selected disabled hidden>Choose publishing status</option>
-            <option value = "unpublished">Unpublished</option>
-            <option value = "published">Published</option>
-          </select>
-
-          <button onClick={handleCreatePost}>Create Post</button>
         </form>
       </div>
     </div>

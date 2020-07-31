@@ -1,0 +1,41 @@
+.createpost__container{
+    
+    background-color: #f2f2f2;
+    width: 65%
+}
+.createpost_formcontainer
+{
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    
+    
+}
+
+.createpost__container__title{
+    font-size: 1.2rem;
+}
+.createpost_formcontainer__author, .createpost_formcontainer__body, .createpost_formcontainer__title{
+    width: 80%
+
+}
+
+.createpost_formcontainer__submitbutton
+{
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    font-size: 1.2rem;
+    
+}
+
+input[type=text], select, textarea {
+    width: 100%; 
+    padding: 12px; 
+    border: 1px solid #ccc; 
+    border-radius: 4px; 
+   
+    margin-top: 6px; 
+    margin-bottom: 16px; 
+    resize: vertical 
+  }

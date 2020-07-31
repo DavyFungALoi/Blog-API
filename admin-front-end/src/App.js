@@ -1,5 +1,5 @@
 import React from "react";
-import "./App.css";
+
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import Home from "./components/Home/home"
@@ -11,7 +11,7 @@ import Createpost from "./components/CreatePosts/createpost"
 
 function App() {
   return (
-    <div className="App_container">
+    <div>
       <Router>
         <div>
           <Nav />
@@ -29,14 +29,3 @@ function App() {
 }
 
 export default App;
-
-/*
-
-<Switch>
-            <Route path="/" exact component={Home} />
-            <Route path="/Blog" exact component={Blogoverview} />
-            <Route path="/Blog/:id" exact component={BlogPost} />
-            <Route path="/admin" component={Admin} />
-          </Switch>
-
-*/
