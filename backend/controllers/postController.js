@@ -17,6 +17,38 @@ exports.getPosts = function (req, res) {
 
 exports.postPosts = function (req, res) {
   const post = new Post({
+    title: req.body.title.title,
+    body:req.body.body.commentInput,
+    
+    author: req.body.author,
+    status: req.body.status.postStatus,
+  });
+  post.save(function (err) {
+    if (err) {
+      return next(err);
+    }
+    res.send(console.log(post));
+    return;
+});
+
+/*
+
+
+  const post = new Post({
+    title: req.body.title.title,
+    body:req.body.body.commentInput,
+    
+    author: req.body.author,
+    status: req.body.status.postStatus,
+  });
+  post.save(function (err) {
+    if (err) {
+      return next(err);
+    }
+    res.send(console.log(post));
+    return;
+
+  const post = new Post({
     title: "Second PUBLISHED POST",
     body:
       "Second blogpost which is going to very long - PUBLISHED POST.  dsifghndfkgndfjhgbwerbw jhgkdkfgnei iergnekjrgnd fngeourgjierngd fihnwergkenrg dfigjnekngid ufg ehnhrgien",
@@ -30,7 +62,23 @@ exports.postPosts = function (req, res) {
     res.send(console.log(post));
     return;
   });
-};
+
+
+    const comment = new Comment({
+    name: req.body.name.username,
+    title: req.body.title.title,
+    body: req.body.body.commentInput,
+    post: req.body.postId,
+  });
+  comment.save(function (err) {
+    if (err) {
+      return next(err);
+    }
+    res.send(console.log(comment));
+    return;
+  });
+
+*/
 
 exports.putPosts = function (req, res) {
   res.send(console.log("Put posts"));
