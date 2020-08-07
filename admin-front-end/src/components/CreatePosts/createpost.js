@@ -36,7 +36,7 @@ export default function Createpost() {
   };
 
   const handleBodyChange = (e) => {
-    setBodyInput({ commentInput: e.target.value });
+    setBodyInput({ bodyInput: e.target.value });
   };
   
   const handleStatusChange = (e) => {
@@ -44,17 +44,11 @@ export default function Createpost() {
   
     console.log(postStatus)
   };
-
-
-   const test = () => {
-     console.log(postStatus)
-   }
   
-
-
   const handleCreatePostSubmit = async (event) => {
    fetchPostPost()
     event.preventDefault();
+    alert("Post has been submitted")
   };
 
 
@@ -118,7 +112,7 @@ export default function Createpost() {
           />
         </form>
       </div>
-      <div onClick={test}>hello</div>
+  
     </div>
   );
 }
