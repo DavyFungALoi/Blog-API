@@ -15,8 +15,45 @@ exports.getPosts = function (req, res) {
     });
 };
 
-exports.postPosts = function (req, res) {
+exports.postPosts = function (req, res, next) {
   const post = new Post({
+    title: req.body.title.title,
+    body: req.body.body.bodyInput,
+    author: req.body.author,
+    status: req.body.status.postStatus,
+  });
+  post.save(function (err) {
+    if (err) {
+      return next(err);
+    }
+
+    res.send(console.log(post));
+    return;
+  });
+};
+
+/*
+
+  const user = new User({
+    first_name: "Obi-wan",
+    last_name: "Kenobi",
+    username: "Hellothere@kappa.com",
+    password: "generalkenobi",
+    id: 1,
+  });
+  user.save(function (err) {
+    if (err) {
+      return next(err);
+    }
+    res.send(console.log(user));
+    return;
+  });
+};
+
+
+*/
+
+/* const post = new Post({
     title: req.body.title.title,
     body:req.body.body.commentInput,
     
@@ -26,10 +63,10 @@ exports.postPosts = function (req, res) {
   post.save(function (err) {
     if (err) {
       return next(err);
-    }
-    res.send(console.log(post));
+    }*
+    res.send(console.log("hello");
     return;
-});
+    */
 
 /*
 
@@ -102,22 +139,20 @@ exports.getSinglePost = function (req, res, next) {
     });
 };
 
-
 ///
 
 exports.getPostsAdmin = function (req, res) {
   Post.find({}, "title time status")
-  .populate("author")
-  .exec(function (err, list_posts) {
-    if (err) {
-      return next(err);
-    }
-   
-    res.send({
-      post_list: list_posts,
-    });
-  });
+    .populate("author")
+    .exec(function (err, list_posts) {
+      if (err) {
+        return next(err);
+      }
 
+      res.send({
+        post_list: list_posts,
+      });
+    });
 };
 /*
   Post.find({}, "title time status")
