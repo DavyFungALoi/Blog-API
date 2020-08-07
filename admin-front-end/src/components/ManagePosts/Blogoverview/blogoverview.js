@@ -18,6 +18,8 @@ export default function Blogoverview() {
     setBlogs(items.post_list);
   };
 
+
+
   return (
     <div>
       <div className="blog_overview__title">Blogoverview</div>
@@ -35,6 +37,8 @@ export default function Blogoverview() {
           </Link>
         ))}
       </div>
+
+      
     </div>
   );
 }
