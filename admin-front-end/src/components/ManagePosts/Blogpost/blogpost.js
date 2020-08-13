@@ -65,6 +65,24 @@ export default function Blogpost({ match }) {
       .catch((error) => console.log(error));
   };
 
+  const fetchDeleteComment = () => {
+    const currentCommentId = commentId;
+    fetch(`http://localhost:5000/blog/comment/${currentCommentId}`, {
+      mode: "cors",
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        commentId: commentId,
+      }),
+    })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => console.log(error));
+  };
+
   const handlePostCommentAndRetrieve = async () => {
     const responsePostComments = await fetchPostComment();
     const responseRetrieveComments = await fetchComments();
@@ -87,6 +105,8 @@ export default function Blogpost({ match }) {
     ///setCommentId({ commentId: comment._id});
     ///setCommentId({ commentId: e.target.comment._id });
     console.log(commentId);
+    fetchDeleteComment()
+    fetchComments()
   };
 
   return (
@@ -117,7 +137,14 @@ export default function Blogpost({ match }) {
                 <div>{comment.title}</div>
                 <div>{comment.body}</div>
                 <div>{comment._id}</div>
-                <button onClick={()=> {setCommentId({ commentId: comment._id})}}> set ID</button>
+                <button
+                  onClick={() => {
+                    setCommentId({ commentId: comment._id });
+                  }}
+                >
+                  {" "}
+                  set ID
+                </button>
                 <button onClick={handleDelete}> Delete Comment</button>
               </div>
             ))}
