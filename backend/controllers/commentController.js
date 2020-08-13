@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const Comment = require("../models/comments");
 
 exports.getComments = function (req, res) {
-  console.log(req.params.id);
   Comment.find({ post: req.params.id }, "title name body").exec(function (
     err,
     list_comments
@@ -35,9 +34,29 @@ exports.putComments = function (req, res) {
 };
 
 exports.deleteComments = function (req, res) {
-  res.send(console.log("delete Comments"));
+  const commentId = req.body.commentId.commentId;
+  Comment.deleteOne({ _id: commentId })
+    .then((doc) => {
+      console.log(doc);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+
+  res.send("comment deleted");
 };
 //*{person1: mongoose.Types.ObjectId(Person._id)}
+///Comment.findByIdAndRemove({ _id: commentId })
+
+/*
+Details.findById(ObjectId("5d71522dc452f78e335d2d8b"))
+  .then(doc => {
+    console.log(doc);
+  })
+  .catch(err => {
+    console.log(err);
+  });
+*/
 
 exports.postComment = function (req, res, next) {
   const comment = new Comment({
@@ -53,6 +72,4 @@ exports.postComment = function (req, res, next) {
     res.send(console.log(comment));
     return;
   });
-  
 };
-
