@@ -3,9 +3,6 @@ import moment from "moment";
 import "./blogpost.css";
 
 export default function Blogpost({ match }) {
-  const [username, setUsername] = useState({ username: "" });
-  const [title, setTitle] = useState({ title: "" });
-  const [commentInput, setCommentInput] = useState({ commentInput: "" });
   const [commentId, setCommentId] = useState({ commentId: "" });
 
   useEffect(() => {
@@ -38,33 +35,6 @@ export default function Blogpost({ match }) {
     const items = await data.json();
     setComments(items.comments_list);
   };
-
-  const fetchPostComment = () => {
-    const currentblogID = window.location.pathname.split("/").pop();
-    const variable = window.location.pathname.split("/");
-    const commentVariable = variable[2];
-    fetch(
-      `http://localhost:5000${window.location.pathname}/comment/${commentVariable}`,
-      {
-        mode: "cors",
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: username,
-          title: title,
-          body: commentInput,
-          postId: currentblogID,
-        }),
-      }
-    )
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((error) => console.log(error));
-  };
-
   const fetchDeleteComment = () => {
     const currentCommentId = commentId;
     fetch(`http://localhost:5000/blog/comment/${currentCommentId}`, {
@@ -82,25 +52,6 @@ export default function Blogpost({ match }) {
       })
       .catch((error) => console.log(error));
   };
-
-  const handlePostCommentAndRetrieve = async () => {
-    const responsePostComments = await fetchPostComment();
-    const responseRetrieveComments = await fetchComments();
-    return [responsePostComments, responseRetrieveComments];
-  };
-
-  const handleUsernameChange = (e) => {
-    setUsername({ username: e.target.value });
-  };
-
-  const handleTitleChange = (e) => {
-    setTitle({ title: e.target.value });
-  };
-
-  const handleCommentChange = (e) => {
-    setCommentInput({ commentInput: e.target.value });
-  };
-
   const handleDelete = (e) => {
     ///setCommentId({ commentId: comment._id});
     ///setCommentId({ commentId: e.target.comment._id });
@@ -149,36 +100,7 @@ export default function Blogpost({ match }) {
               </div>
             ))}
           </div>
-          <form
-            className="blogpost_postCommentAndRetrieveHandler_container__commentform"
-            action=""
-          >
-            <label htmlFor="username">Username (optional)</label>
-            <input
-              name="username"
-              type="text"
-              value={username.username}
-              onChange={handleUsernameChange}
-            />
-            <label htmlFor="title">title</label>
-            <input
-              name="title"
-              type="text"
-              value={title.title}
-              onChange={handleTitleChange}
-            />
-            <label htmlFor="body">comment</label>
-            <input
-              name="body"
-              type="text"
-              value={commentInput.commentInput}
-              onChange={handleCommentChange}
-            />
-
-            <button onClick={handlePostCommentAndRetrieve}>
-              Submit Comment
-            </button>
-          </form>
+   
         </div>
       </div>
     </div>
