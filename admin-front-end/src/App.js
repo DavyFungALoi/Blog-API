@@ -8,6 +8,7 @@ import Blogoverview from "./components/ManagePosts/Blogoverview/blogoverview";
 import BlogPost from "./components/ManagePosts/Blogpost/blogpost";
 import Admin from "./components/Admin/admin";
 import Createpost from "./components/CreatePosts/createpost"
+import Blogpostedit from "./components/ManagePosts/Blogpost/Blogpostedit/blogpostedit"
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Route path="/createpost" exact component={Createpost} />
             <Route path="/Blog/:id" exact component={BlogPost} />
             <Route path="/admin" component={Admin} />
+            <Route path="/Blog/:id/edit"component={Blogpostedit} />
           </Switch>
         </div>
       </Router>

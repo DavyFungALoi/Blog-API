@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
 import "./blogpost.css";
+import { Link } from "react-router-dom";
 
 export default function Blogpost({ match }) {
+  const [blog, setBlog] = useState({ author: {} });
+  const [comments, setComments] = useState([]);
   const [commentId, setCommentId] = useState({ commentId: "" });
 
   useEffect(() => {
     fetchBlog();
     fetchComments();
   }, []);
-  const [blog, setBlog] = useState({ author: {} });
-  const [comments, setComments] = useState([]);
   const fetchBlog = async () => {
     const data = await fetch(
       `http://localhost:5000${window.location.pathname}`,
@@ -35,7 +36,7 @@ export default function Blogpost({ match }) {
     const items = await data.json();
     setComments(items.comments_list);
   };
-  const fetchDeleteComment = () => {
+  const fetchDeleteComment = (commentId) => {
     const currentCommentId = commentId;
     fetch(`http://localhost:5000/blog/comment/${currentCommentId}`, {
       mode: "cors",
@@ -52,13 +53,51 @@ export default function Blogpost({ match }) {
       })
       .catch((error) => console.log(error));
   };
-  const handleDelete = (e) => {
-    ///setCommentId({ commentId: comment._id});
-    ///setCommentId({ commentId: e.target.comment._id });
-    console.log(commentId);
-    fetchDeleteComment()
-    fetchComments()
+
+  const handleDelete = async (commentIdSelect) => {
+    const setId = setCommentId({ commentId: commentIdSelect });
+    const deleteComment = await fetchDeleteComment(commentId);
+    const retrieveComments = await fetchComments();
+    return [setId, deleteComment, retrieveComments];
   };
+  /*
+  const handleDelete2 = (commentIdSelect) => {}
+
+  const handleDelete = (commentIdSelect) => {
+   return setCommentId({ commentId: commentIdSelect })
+      .then(fetchDeleteComment(commentId))
+      .then(fetchComments());
+      
+  };
+
+
+
+  const a = await setCommentId({ commentId: commentIdSelect})
+  const b = await fetchDeleteComment(commentId)
+  const c = await fetchComments()
+
+  await setCommentId({ commentId: commentIdSelect})
+  await fetchDeleteComment(commentId)
+  await fetchComments()
+
+    await setCommentId({ commentId: commentIdSelect})
+  fetchDeleteComment(commentId)
+  await fetchComments()
+
+
+  // L1
+console.log('🥪 Synchronous 1');
+
+// L2
+setTimeout(_ => console.log(`🍅 Timeout 2`), 0);
+
+// L3
+Promise.resolve().then(_ => console.log('🍍 Promise 3'));
+
+// L4
+console.log('🥪 Synchronous 4');
+
+*/
 
   return (
     <div>
@@ -76,6 +115,9 @@ export default function Blogpost({ match }) {
             </div>
           </div>
           <div>{blog.body}</div>
+          <Link to={`/blog/${blog._id}/edit`} key={blog._id}>
+            <div>Preview</div>
+          </Link>
           <div className="blogpost__container__comment__container">
             {comments.map((comment) => (
               <div
@@ -96,11 +138,17 @@ export default function Blogpost({ match }) {
                   {" "}
                   set ID
                 </button>
-                <button onClick={handleDelete}> Delete Comment</button>
+                <button
+                  onClick={() => {
+                    handleDelete(comment._id);
+                  }}
+                >
+                  {" "}
+                  Delete Comment
+                </button>
               </div>
             ))}
           </div>
-   
         </div>
       </div>
     </div>
